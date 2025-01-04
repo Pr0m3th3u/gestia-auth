@@ -1,4 +1,4 @@
-module gestia
+module gestia-auth
 
 go 1.23.2
 

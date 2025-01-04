@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gestia/cmd/app"
+	"gestia-auth/cmd/app"
 	"log"
 
 	"go.uber.org/zap"

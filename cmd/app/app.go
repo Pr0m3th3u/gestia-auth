@@ -8,7 +8,8 @@ import (
 	"github.com/go-chi/cors"
 	"go.uber.org/zap"
 
-	_ "gestia/docs"
+	_ "gestia-auth/docs"
+	"gestia-auth/internal/app/gestia/handlers"
 
 	httpSwagger "github.com/swaggo/http-swagger"
 )
@@ -37,6 +38,12 @@ func NewApp(logger *zap.Logger) (*App, error) {
 		MaxAge:           500, // Maximum value not ignored by any of major browsers
 	}))
 
+	authHandler := handlers.NewRootHandler()
+	r.Route("/api/v1/auth", func(r chi.Router) {
+		r.Post("/register", authHandler.RegisterHandler)
+		r.Post("/login", authHandler.LoginHandler)
+		r.Post("/refresh", authHandler.RefreshTokenHandler)
+	})
 	r.Get("/swagger/*", httpSwagger.WrapHandler)
 
 	return &App{
